@@ -1,7 +1,8 @@
 # https://cryptography.io/en/latest/
 # https://realpython.com/python-command-line-arguments/#the-command-line-interface
 from cryptography.fernet import Fernet
-import sys
+import sys, os
+
 args = sys.argv
 if len(args) < 3:
     sys.exit("Missing Arguments!")
@@ -9,19 +10,25 @@ if len(args) < 3:
 encryptDir = args[1]
 keyDir = args[2]
 
-
+# Generates and saves key
 key = Fernet.generate_key()
-
-# Sparar Nyckeln
-with open(keyDir + "key.txt", "wb") as keyFile:
+with open(keyDir + "/key.txt", "wb") as keyFile:
     keyFile.write(key)
-
 f = Fernet(key)
 
-# Läser Filen och sparar innehållet som binärt 
-with open(encryptDir, "rb") as file:
-    token = f.encrypt(file.read())
+def encrypt(encryptFilePath):
 
-# Skriver över innehållet som binärt
-with open(encryptDir, "wb") as file:
-    file.write(token)
+    # Reads files and creates encrypted material
+    with open(encryptFilePath, "rb") as file:
+        material = f.encrypt(file.read())
+
+    # Overwrites file with encrypted material
+    with open(encryptFilePath, "wb") as file:
+        file.write(material)
+
+if os.path.isfile(encryptDir):
+    encrypt(encryptDir)
+else:
+    for file in os.listdir(encryptDir):
+        path = encryptDir + "/" +file
+        encrypt(path)
