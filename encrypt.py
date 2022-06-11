@@ -33,3 +33,4 @@ else:
     for path, subdirs, files in os.walk(encryptDir):
         for name in files:
             encrypt(os.path.join(path, name))
+
