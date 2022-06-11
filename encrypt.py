@@ -1,5 +1,4 @@
 # https://cryptography.io/en/latest/
-# https://realpython.com/python-command-line-arguments/#the-command-line-interface
 from cryptography.fernet import Fernet
 import sys, os
 
