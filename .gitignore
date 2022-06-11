@@ -127,6 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-Test Filer/Hejsan Svejsan.txt
 key.txt
-Test Filer/Nemän.txt
+*.txt

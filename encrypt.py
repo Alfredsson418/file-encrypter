@@ -29,6 +29,7 @@ def encrypt(encryptFilePath):
 if os.path.isfile(encryptDir):
     encrypt(encryptDir)
 else:
-    for file in os.listdir(encryptDir):
-        path = encryptDir + "/" +file
-        encrypt(path)
+
+    for path, subdirs, files in os.walk(encryptDir):
+        for name in files:
+            encrypt(os.path.join(path, name))
